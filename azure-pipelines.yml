@@ -7,10 +7,10 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: Script Stage
-    displayName: Learning Scripts 
+  - stage: Script_Stage
+    displayName: 'Learning Scripts'
     jobs:
-      - job: 'Script-Job'
+      - job: Script_Job
         steps:
           - script: echo Hello World
             displayName: 'Run a One line Script'
@@ -18,10 +18,10 @@ stages:
               echo add other task to build, deploy and test
               echo this is for testing
             displayName: 'This is a Multiline Script'   
-  - stage: Build Maven Project Stage 
-    displayName: Building Java Maven Projects
+  - stage: Build_Maven_Project_Stage 
+    displayName: 'Building Java Maven Projects'
     jobs:
-      - job: Build-Maven-Job
+      - job: Build_Maven_Job
         steps:
           - script: echo Hello World 2
             displayName: 'Run a One line Script'
