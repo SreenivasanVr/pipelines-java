@@ -11,7 +11,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - template: java-template/java-build-template-using-stages.yml@shared-templates
+  - template: maven-java-template.yml@shared-templates
     parameters:
       buildProjectName: My_First_Java_Project
       pipeline_artifact_name: javajar
