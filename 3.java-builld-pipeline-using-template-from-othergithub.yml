@@ -1,0 +1,17 @@
+resources:
+  repositories:
+    - repository: shared_template
+      type: git
+      name: SreenivasanVr/shared-templates
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  - template: 4.java-build-template-using-stages.yml@shared-templates
+    parameters:
+      buildProjectName: My_First_Java_Project
+      pipeline_artifact_name: javajar
+      
