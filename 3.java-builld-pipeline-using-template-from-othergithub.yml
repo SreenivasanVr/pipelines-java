@@ -11,6 +11,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
+  - template: maven_java_template.yml@shared_templates
   - stage:
     jobs:
       - job: 
