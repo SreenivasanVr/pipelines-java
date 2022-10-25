@@ -1,9 +1,9 @@
 resources:
   repositories:
-    - repository: any_name_template
+    - repository: shared-templates
       type: github
       endpoint: SreenivasanVr
-      name: shared-templates
+      name: SreenivasanVr/shared-templates
 trigger: none
 pr: none
 
