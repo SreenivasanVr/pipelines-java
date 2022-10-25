@@ -12,6 +12,9 @@ pool:
 
 stages:
   - template: maven_java_template.yml@shared_templates
+    parameters:
+      buildProjectName: javaproject
+      pipeline_artifact_name: java_pipeline_build
   - stage:
     jobs:
       - job: 
