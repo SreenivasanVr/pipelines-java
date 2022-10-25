@@ -1,9 +1,9 @@
 resources:
   repositories:
-    - repository: shared-templates
+    - repository: shared_templates
       type: github
       endpoint: SreenivasanVr
-      name: SreenivasanVr/shared-templates
+      name: SreenivasanVr/shared_templates
 trigger: none
 pr: none
 
@@ -11,7 +11,7 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-  - template: maven-java-template.yml@shared-templates
+  - template: maven_java_template.yml@shared_templates
     parameters:
       buildProjectName: My_First_Java_Project
       pipeline_artifact_name: javajar
