@@ -10,11 +10,13 @@ pr: none
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  pipeline_artifact_name: java_pipeline_build
+
 stages:
   - template: maven_java_template.yml@shared_templates
     parameters:
       buildProjectName: javaproject
-      pipeline_artifact_name: java_pipeline_build
   - stage:
     jobs:
       - job: 
