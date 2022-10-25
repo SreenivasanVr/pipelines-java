@@ -1,7 +1,7 @@
 resources:
   repositories:
     - repository: shared_template
-      type: git
+      type: github
       name: SreenivasanVr/shared-templates
 trigger: none
 pr: none
