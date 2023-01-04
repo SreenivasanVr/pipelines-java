@@ -38,6 +38,8 @@ stages:
               effectivePomSkip: false
               sonarQubeRunAnalysis: false
       - deployment: deploy
+        dependsOn: Build_Maven_Job
+        condition: succeeded()
         environment: DVLP
         strategy:
           runOnce:
