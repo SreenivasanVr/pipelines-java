@@ -1,9 +1,9 @@
 resources:
   repositories:
-    - repository: shared_templates
+    - repository: templates
       type: github
       endpoint: SreenivasanVr
-      name: SreenivasanVr/shared_templates
+      name: SreenivasanVr/templates
 trigger: none
 pr: none
 
@@ -14,7 +14,7 @@ variables:
   pipeline_artifact_name: java_pipeline_build
 
 stages:
-  - template: maven_java_template.yml@shared_templates
+  - template: maven_java_template.yml@templates
     parameters:
       buildProjectName: javaproject
   - stage:
