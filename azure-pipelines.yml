@@ -5,7 +5,7 @@ pool:
 
 stages:
   - stage: Script_Stage
-    displayName: 'Learning Scripts'
+    displayName: 'Learning Scripts'    
     jobs:
       - job: Script_Job
         steps:
@@ -15,7 +15,7 @@ stages:
               echo add other task to build, deploy and test
               echo this is for testing
             displayName: 'This is a Multiline Script'   
-  - stage: Build_Maven_Project_Stage 
+  - stage: Build_Maven_Project_Stage
     displayName: 'Building Java Maven Projects'
     jobs:
       - job: Build_Maven_Job
@@ -37,5 +37,11 @@ stages:
               mavenAuthenticateFeed: false
               effectivePomSkip: false
               sonarQubeRunAnalysis: false
-
+      - deployment: deploy
+        environment: DVLP
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo Deployment task
     
