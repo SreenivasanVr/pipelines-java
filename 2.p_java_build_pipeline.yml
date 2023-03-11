@@ -5,18 +5,22 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: Build
+- stage: Maven_Build_Java_Stage
   jobs:
-  - job: Build
+  - job: Maven_Build_Job
     steps:
-    - task: Maven@3
+    - task: Maven@4
       inputs:
         mavenPomFile: 'pom.xml'
-        mavenOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.11'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+        
+        
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
