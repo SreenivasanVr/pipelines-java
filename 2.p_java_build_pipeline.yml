@@ -31,12 +31,11 @@ stages:
               echo "Build Agent Directory is : $(Agent.BuildDirectory)"
               cd $(Agent.BuildDirectory)
               ls $(Agent.BuildDirectory)
-          - task: CopyPublishBuildArtifacts@1
+          - task: PublishBuildArtifacts@1
             inputs:
-              CopyRoot: '$(Agent.BuildDirectory)'
-              Contents: '**'
+              PathtoPublish: '$(Agent.BuildDirectory)'
               ArtifactName: 'drop'
-              ArtifactType: 'Container'
+              publishLocation: 'Container'
           - script: |
               echo "Build Artifact Staging Directory is : $(Build.ArtifactStagingDirectory)"
               cd $(Build.ArtifactStagingDirectory)
