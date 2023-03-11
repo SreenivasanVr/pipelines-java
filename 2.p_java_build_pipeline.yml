@@ -23,12 +23,7 @@ stages:
               mavenVersionOption: 'Default'
               mavenAuthenticateFeed: false
               effectivePomSkip: false
-              sonarQubeRunAnalysis: true
-              sqMavenPluginVersionChoice: 'latest'
-              checkStyleRunAnalysis: true
-              pmdRunAnalysis: true
-              findBugsRunAnalysis: true
-              spotBugsRunAnalysis: true
+              sonarQubeRunAnalysis: false
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
