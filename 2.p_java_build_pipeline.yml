@@ -24,10 +24,13 @@ stages:
               mavenAuthenticateFeed: false
               effectivePomSkip: false
               sonarQubeRunAnalysis: false
+          - script: |
+              cd $(Build.ArtifactStagingDirectory)
+              ls $(Build.ArtifactStagingDirectory)
           - task: PublishBuildArtifacts@1
             inputs:
               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'drop'
+              ArtifactName: 'target'
               publishLocation: 'Container'
   - stage: Download_Build_Artifact_Stage
     jobs:
