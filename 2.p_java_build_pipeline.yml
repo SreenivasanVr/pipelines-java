@@ -1,58 +1,43 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
-
-trigger: none
+trigger:
+- main
 
 pool:
   vmImage: ubuntu-latest
 
 stages:
-  - stage: Maven_Build_Stage
-    jobs:
-      - job: Maven_Build_Job
-        steps:
-          - task: Maven@4
-            inputs:
-              mavenPomFile: 'pom.xml'
-              publishJUnitResults: true
-              testResultsFiles: '**/surefire-reports/TEST-*.xml'
-              javaHomeOption: 'JDKVersion'
-              mavenVersionOption: 'Default'
-              mavenAuthenticateFeed: false
-              effectivePomSkip: false
-              sonarQubeRunAnalysis: false
-          - script: |
-              echo "Build Artifact Staging Directory is : $(Build.ArtifactStagingDirectory)"
-              cd $(Build.ArtifactStagingDirectory)
-              ls $(Build.ArtifactStagingDirectory)
-          - script: |
-              echo "Build Agent Directory is : $(Agent.BuildDirectory)"
-              cd $(Agent.BuildDirectory)
-              ls $(Agent.BuildDirectory)
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'helloworld'
-              publishLocation: 'Container'
-              
-          - script: |
-              echo "Build Artifact Staging Directory is : $(Build.ArtifactStagingDirectory)"
-              cd $(Build.ArtifactStagingDirectory)
-              ls $(Build.ArtifactStagingDirectory)
-  - stage: Download_Build_Artifact_Stage
-    jobs:
-      - job: Download_Build_Job
-        steps:
-        - task: DownloadBuildArtifacts@1
-          inputs:
-            buildType: 'current'
-            downloadType: 'single'
-            artifactName: 'helloworld'
-            downloadPath: '$(Build.ArtifactStagingDirectory)'
-            cleanDestinationFolder: true
-          
-
-
-
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.11'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'MyJavaApp'
+        publishLocation: 'Container'
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        artifactName: 'MyJavaApp'
+        downloadPath: '$(Build.ArtifactStagingDirectory)/MyJavaApp'
+    - task: CopyFiles@2
+      inputs:
+        sourceFolder: '$(Build.ArtifactStagingDirectory)/MyJavaApp'
+        Contents: '**'
+        targetFolder: '$(System.DefaultWorkingDirectory)/MyJavaApp'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          cd $(System.DefaultWorkingDirectory)/MyJavaApp
+          # run deploy script or command to deploy the application
