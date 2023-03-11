@@ -19,29 +19,33 @@ stages:
         mavenAuthenticateFeed: false
         effectivePomSkip: false
         sonarQubeRunAnalysis: false
-        
-        
+    - task: CopyFiles@2
+      inputs:
+        Contents: 'target/**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'MyJavaApp'
+        ArtifactName: 'drop'
         publishLocation: 'Container'
-- stage: Deploy
+    
+- stage: Download_Artifact_Stage
   jobs:
-  - job: Deploy
+  - job: Download_Artifact_job
     steps:
     - task: DownloadBuildArtifacts@1
       inputs:
-        artifactName: 'MyJavaApp'
-        downloadPath: '$(Build.ArtifactStagingDirectory)/MyJavaApp'
+        artifactName: 'drop'
+        downloadPath: '$(Build.ArtifactStagingDirectory)/drop'
     - task: CopyFiles@2
       inputs:
-        sourceFolder: '$(Build.ArtifactStagingDirectory)/MyJavaApp'
+        sourceFolder: '$(Build.ArtifactStagingDirectory)/drop'
         Contents: '**'
-        targetFolder: '$(System.DefaultWorkingDirectory)/MyJavaApp'
+        targetFolder: '$(System.DefaultWorkingDirectory)/drop'
     - task: Bash@3
       inputs:
         targetType: 'inline'
         script: |
-          cd $(System.DefaultWorkingDirectory)/MyJavaApp
+          cd $(System.DefaultWorkingDirectory)/drop
+          ls $(System.DefaultWorkingDirectory)/drop
           # run deploy script or command to deploy the application
