@@ -37,6 +37,10 @@ stages:
               Contents: '**'
               ArtifactName: 'drop'
               ArtifactType: 'Container'
+          - script: |
+              echo "Build Artifact Staging Directory is : $(Build.ArtifactStagingDirectory)"
+              cd $(Build.ArtifactStagingDirectory)
+              ls $(Build.ArtifactStagingDirectory)
   - stage: Download_Build_Artifact_Stage
     jobs:
       - job: Download_Build_Job
