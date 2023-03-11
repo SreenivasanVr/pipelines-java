@@ -24,13 +24,19 @@ stages:
               effectivePomSkip: false
               sonarQubeRunAnalysis: false
           - script: |
+              echo "Build Artifact Staging Directory is : $(Build.ArtifactStagingDirectory)"
               cd $(Build.ArtifactStagingDirectory)
               ls $(Build.ArtifactStagingDirectory)
-          - task: PublishBuildArtifacts@1
+          - script: |
+              echo "Build Agent Directory is : $(Agent.BuildDirectory)"
+              cd $(Agent.BuildDirectory)
+              ls $(Agent.BuildDirectory)
+          - task: CopyPublishBuildArtifacts@1
             inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'target'
-              publishLocation: 'Container'
+              CopyRoot: '$(Agent.BuildDirectory)'
+              Contents: '**'
+              ArtifactName: 'drop'
+              ArtifactType: 'Container'
   - stage: Download_Build_Artifact_Stage
     jobs:
       - job: Download_Build_Job
