@@ -40,7 +40,7 @@ stages:
     - task: CopyFiles@2
       inputs:
         sourceFolder: '$(Build.ArtifactStagingDirectory)/drop'
-        Contents: '**'
+        Contents: '**/*.war'
         targetFolder: '$(System.DefaultWorkingDirectory)/drop'
     - task: Bash@3
       inputs:
