@@ -4,7 +4,26 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  major: 1
+  minor: 0
+  patch: 0
+  incrementNumber: 0
+
 stages:
+- stage: Versioning
+  jobs:
+    - job: semantic_versioning
+      steps:
+        - script: |
+            currentMajor=$(Build.Major)
+            currentMinor=$(Build.Minor)
+            currentPatch=$(Build.Patch)
+            echo "Major version changed from $currentMajor to $newMajor. Resetting minor, patch, and increment-number."
+            echo "##vso[task.setvariable variable=major]$newMajor"
+            echo "##vso[task.setvariable variable=minor]0"
+            echo "##vso[task.setvariable variable=patch]0"
+            echo "##vso[task.setvariable variable=incrementNumber]0"
 - stage: Maven_Build_Java_Stage
   jobs:
   - job: Maven_Build_Job
