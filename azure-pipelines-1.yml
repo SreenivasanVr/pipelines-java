@@ -14,7 +14,9 @@ stages:
       - job: Java_Build_Job
         steps:
           - script: echo "My Java Build"
+            displayName: "Print Variables"
           - task: Maven@4
+            displayName: Maven Java Build
             inputs:
               mavenPomFile: 'pom.xml'
               publishJUnitResults: true
