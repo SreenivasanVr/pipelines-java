@@ -9,8 +9,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+name: Build.SourceBranchName
 steps:
 - task: Maven@3
+  displayName: Maven build
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
