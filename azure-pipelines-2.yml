@@ -9,7 +9,13 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-name: Build.SourceBranchName
+variables:
+  - name: major
+    value: 16
+  - name: minor
+    value: 1
+
+name: $(major).$(minor).$(Build.SourceBranchName)
 steps:
 - task: Maven@3
   displayName: Maven build
