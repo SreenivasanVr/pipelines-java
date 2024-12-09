@@ -15,7 +15,7 @@ variables:
   - name: minor
     value: 1
 
-name: $(major).$(minor).$(Build.SourceBranchName)
+name: $(major).$(minor).$(Build.SourceBranchName).$(Build.Repository.Name).$(Date:yyyymmdd)
 steps:
 - task: Maven@3
   displayName: Maven build
