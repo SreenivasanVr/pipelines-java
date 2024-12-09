@@ -15,7 +15,7 @@ variables:
   - name: minor
     value: 1
 
-name: $(major).$(minor).$(Build.Repository.Name).$(Rev:r)
+name: $(major).$(minor).$(Build.BuildNumber).$(Rev:r)
 steps:
 - task: Maven@3
   displayName: Maven build
