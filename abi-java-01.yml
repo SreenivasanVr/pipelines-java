@@ -15,7 +15,7 @@ stages:
       - job: Java_Build_Job
         steps :
           - script: "java Build"
-            displayName : "Print variables"          
+            displayName : "Print variables"
           - task: Maven@4
             displayName: Maven Java Build
             inputs:
